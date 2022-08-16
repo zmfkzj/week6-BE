@@ -11,13 +11,9 @@ import java.io.Serializable;
 @Entity
 @NoArgsConstructor
 @Getter
-public class Heart extends Timestamped{
+public class Heart extends TimeAndMember{
     @EmbeddedId
     private HeartId id;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "member_id", nullable = false)
-    protected Member member;
 
     @Builder
     public Heart(Post post, Comment comment, Member member){
