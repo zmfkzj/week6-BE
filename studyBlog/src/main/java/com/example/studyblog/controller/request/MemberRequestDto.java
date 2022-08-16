@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class MemberRequestDto {
 
   @NotBlank
-  private String memberId;
+  private String email;
 
   @NotBlank
   private String nickname;
