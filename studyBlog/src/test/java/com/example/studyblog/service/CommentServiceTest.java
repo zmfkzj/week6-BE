@@ -42,7 +42,7 @@ class CommentServiceTest {
     @BeforeAll
     static void setUp() {
         member = Member.builder()
-                .memberId("test1")
+                .email("test1")
                 .gender(Gender.MALE)
                 .nickname("test1")
                 .password("test1qwe")
