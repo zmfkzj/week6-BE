@@ -1,28 +1,36 @@
 package com.example.studyblog.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-
-@Entity
-@Builder
-@AllArgsConstructor
+@Getter
 @NoArgsConstructor
-public class RefreshToken {
-    @Id
-    @Column(nullable = false)
-    private Long id;
+@AllArgsConstructor
+@Builder
+@Entity
+public class RefreshToken extends Timestamped {
 
-    @JoinColumn(name = "member_id", nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Member member;
+  @Id
+  @Column(nullable = false)
+  private Long id;
 
-    @Column(nullable = false)
-    private String tokenValue;
+  @JoinColumn(name = "member_id", nullable = false)
+  @OneToOne(fetch = FetchType.LAZY)
+  private Member member;
 
-    public void updateToken(String token){
-        this.tokenValue = token;
-    }
+  @Column(name="token_val", nullable = false)
+  private String value;
+
+  public void updateValue(String token) {
+    this.value = token;
+  }
 }
