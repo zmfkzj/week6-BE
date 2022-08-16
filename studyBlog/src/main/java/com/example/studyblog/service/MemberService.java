@@ -30,8 +30,20 @@ public class MemberService {
   @Transactional
   public ResponseDto<?> createMember(MemberRequestDto requestDto) {
 
+    Optional<Member> memberIdExist = memberRepository.findByEmail(requestDto.getEmail());
+    Optional<Member> nicknameExist = memberRepository.findByNickname(requestDto.getNickname());
+
+    if (memberIdExist.isPresent()) {
+      return ResponseDto.fail("DUPLICATED_NICKNAME",
+              "이미 존재하는 아이디 입니다.");
+    }
+    if (nicknameExist.isPresent()) {
+      return ResponseDto.fail("DUPLICATED_NICKNAME",
+              "이미 존재하는 닉네임 입니다.");
+    }
+
     Member member = Member.builder()
-            .mamberId(requestDto.getMemberId())
+            .email(requestDto.getEmail())
             .nickname(requestDto.getNickname())
             .password(passwordEncoder.encode(requestDto.getPassword()))
             .gender(requestDto.getGender())
@@ -41,6 +53,7 @@ public class MemberService {
     return ResponseDto.success(
         MemberResponseDto.builder()
             .id(member.getId())
+            .email(member.getEmail())
             .nickname(member.getNickname())
             .createdAt(member.getCreatedAt())
             .modifiedAt(member.getModifiedAt())
@@ -50,12 +63,23 @@ public class MemberService {
 
   @Transactional
   public ResponseDto<?> login(LoginRequestDto requestDto, HttpServletResponse response) {
+<<<<<<< Updated upstream
     Member member = isPresentMember(requestDto.getNickname());
     if (null == member) {
+=======
+
+    Optional<Member> optionalMember = memberRepository.findByEmail(requestDto.getEmail());
+    if (optionalMember.isEmpty()) {
+>>>>>>> Stashed changes
       return ResponseDto.fail("MEMBER_NOT_FOUND",
           "사용자를 찾을 수 없습니다.");
     }
 
+<<<<<<< Updated upstream
+=======
+    Member member = optionalMember.get();
+
+>>>>>>> Stashed changes
     if (!member.validatePassword(passwordEncoder, requestDto.getPassword())) {
       return ResponseDto.fail("INVALID_MEMBER", "사용자를 찾을 수 없습니다.");
     }
@@ -70,7 +94,7 @@ public class MemberService {
     return ResponseDto.success(
         MemberResponseDto.builder()
             .id(member.getId())
-            .memberId(member.getMamberId())
+            .email(member.getEmail())
             .nickname(member.getNickname())
             .createdAt(member.getCreatedAt())
             .modifiedAt(member.getModifiedAt())
@@ -101,8 +125,8 @@ public class MemberService {
     return ResponseDto.success("사용할 수 있는 nickname 입니다.");
   }
 
-  public ResponseDto<?> checkMemberId(MemberIdRequestDto memberId){
-    Optional<Member> optionalMember = memberRepository.findByMamberId(memberId.getMemberId());
+  public ResponseDto<?> checkEmail(MemberIdRequestDto memberId){
+    Optional<Member> optionalMember = memberRepository.findByEmail(memberId.getEmail());
 
     if (optionalMember.isPresent()) {
       return ResponseDto.fail("DUPLICATED_NICKNAME",

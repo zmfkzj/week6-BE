@@ -35,14 +35,18 @@ public class MemberController {
 
   @PostMapping("/api/member/exist/memberId")
   public ResponseDto<?> checkMemberId(@RequestBody MemberIdRequestDto memberId){
-    return memberService.checkMemberId(memberId);
+    return memberService.checkEmail(memberId);
   }
 
   @RequestMapping(value = "/api/member/login", method = RequestMethod.POST)
-  public ResponseDto<?> login(@RequestBody @Valid LoginRequestDto requestDto,
+  public ResponseDto<?> login(@RequestBody LoginRequestDto requestDto,
       HttpServletResponse response
   ) {
+<<<<<<< Updated upstream
     System.out.println(requestDto.getNickname());
+=======
+    System.out.println("login controller");
+>>>>>>> Stashed changes
     return memberService.login(requestDto, response);
   }
 
