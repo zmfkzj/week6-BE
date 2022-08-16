@@ -33,5 +33,5 @@ jobs:
       run: chmod +x gradlew
       
     - name: Build with Gradle
-      run: ./studyblog clean build
+      run: ./gradlew
 
