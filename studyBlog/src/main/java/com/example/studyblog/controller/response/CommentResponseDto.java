@@ -3,6 +3,7 @@ package com.example.studyblog.controller.response;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Builder
@@ -11,6 +12,6 @@ public class CommentResponseDto {
     private Long id;
     private String nickname;
     private String content;
-    private Date createdAt;
-    private Date modifiedAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime modifiedAt;
 }
