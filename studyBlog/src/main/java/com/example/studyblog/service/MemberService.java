@@ -31,7 +31,7 @@ public class MemberService {
   public ResponseDto<?> createMember(MemberRequestDto requestDto) {
 
     Member member = Member.builder()
-            .mamberId(requestDto.getMemberId())
+            .memberId(requestDto.getMemberId())
             .nickname(requestDto.getNickname())
             .password(passwordEncoder.encode(requestDto.getPassword()))
             .gender(requestDto.getGender())
@@ -50,7 +50,7 @@ public class MemberService {
 
   @Transactional
   public ResponseDto<?> login(LoginRequestDto requestDto, HttpServletResponse response) {
-    Optional<Member> optionalMember = memberRepository.findByMamberId(requestDto.getMemberId());
+    Optional<Member> optionalMember = memberRepository.findByMemberId(requestDto.getMemberId());
     if (optionalMember.isEmpty()) {
       return ResponseDto.fail("MEMBER_NOT_FOUND",
           "사용자를 찾을 수 없습니다.");
@@ -71,7 +71,7 @@ public class MemberService {
     return ResponseDto.success(
         MemberResponseDto.builder()
             .id(member.getId())
-            .memberId(member.getMamberId())
+            .memberId(member.getMemberId())
             .nickname(member.getNickname())
             .createdAt(member.getCreatedAt())
             .modifiedAt(member.getModifiedAt())
@@ -103,7 +103,7 @@ public class MemberService {
   }
 
   public ResponseDto<?> checkMemberId(MemberIdRequestDto memberId){
-    Optional<Member> optionalMember = memberRepository.findByMamberId(memberId.getMemberId());
+    Optional<Member> optionalMember = memberRepository.findByMemberId(memberId.getMemberId());
 
     if (optionalMember.isPresent()) {
       return ResponseDto.fail("DUPLICATED_NICKNAME",

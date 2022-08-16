@@ -5,6 +5,7 @@ import com.example.studyblog.controller.response.CommentResponseDto;
 import com.example.studyblog.controller.response.MsgResponseDto;
 import com.example.studyblog.controller.response.ResponseDto;
 import com.example.studyblog.domain.Comment;
+import com.example.studyblog.domain.Gender;
 import com.example.studyblog.domain.Member;
 import com.example.studyblog.domain.Post;
 import com.example.studyblog.repository.CommentRepository;
@@ -42,8 +43,8 @@ class CommentServiceTest {
     static void setUp() {
         member = Member.builder()
                 .memberId("test1")
-                .gender(Member.Gender.MALE)
-                .nickName("test1")
+                .gender(Gender.MALE)
+                .nickname("test1")
                 .password("test1qwe")
                 .id(1L)
                 .build();
