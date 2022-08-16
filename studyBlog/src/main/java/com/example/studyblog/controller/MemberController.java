@@ -42,11 +42,6 @@ public class MemberController {
   public ResponseDto<?> login(@RequestBody LoginRequestDto requestDto,
       HttpServletResponse response
   ) {
-<<<<<<< Updated upstream
-    System.out.println(requestDto.getNickname());
-=======
-    System.out.println("login controller");
->>>>>>> Stashed changes
     return memberService.login(requestDto, response);
   }
 

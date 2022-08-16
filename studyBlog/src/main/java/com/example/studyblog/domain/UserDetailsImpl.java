@@ -1,16 +1,14 @@
 package com.example.studyblog.domain;
 
-import com.example.studyblog.shared.Authority;
-import java.util.ArrayList;
+//import com.example.studyblog.shared.Authority;
+//import java.util.ArrayList;
 import java.util.Collection;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+//import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

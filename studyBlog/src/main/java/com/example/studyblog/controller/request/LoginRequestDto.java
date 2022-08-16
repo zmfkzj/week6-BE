@@ -14,9 +14,6 @@ public class LoginRequestDto {
   private String email;
 
   @NotBlank
-  private String nickname;
-
-  @NotBlank
   private String password;
 
 }

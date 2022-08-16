@@ -63,34 +63,24 @@ public class MemberService {
 
   @Transactional
   public ResponseDto<?> login(LoginRequestDto requestDto, HttpServletResponse response) {
-<<<<<<< Updated upstream
-    Member member = isPresentMember(requestDto.getNickname());
-    if (null == member) {
-=======
 
     Optional<Member> optionalMember = memberRepository.findByEmail(requestDto.getEmail());
     if (optionalMember.isEmpty()) {
->>>>>>> Stashed changes
       return ResponseDto.fail("MEMBER_NOT_FOUND",
           "사용자를 찾을 수 없습니다.");
     }
 
-<<<<<<< Updated upstream
-=======
     Member member = optionalMember.get();
 
->>>>>>> Stashed changes
     if (!member.validatePassword(passwordEncoder, requestDto.getPassword())) {
       return ResponseDto.fail("INVALID_MEMBER", "사용자를 찾을 수 없습니다.");
     }
 
-//    UsernamePasswordAuthenticationToken authenticationToken =
-//        new UsernamePasswordAuthenticationToken(requestDto.getNickname(), requestDto.getPassword());
-//    Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-
+    //토큰 만들기
     TokenDto tokenDto = tokenProvider.generateTokenDto(member);
     tokenToHeaders(tokenDto, response);
 
+    //멤버 리스폰스
     return ResponseDto.success(
         MemberResponseDto.builder()
             .id(member.getId())

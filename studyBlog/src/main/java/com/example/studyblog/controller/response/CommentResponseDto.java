@@ -1,0 +1,17 @@
+package com.example.studyblog.controller.response;
+
+import lombok.Builder;
+import lombok.Getter;
+
+import java.time.LocalDateTime;
+import java.util.Date;
+
+@Builder
+@Getter
+public class CommentResponseDto {
+    private Long id;
+    private String nickname;
+    private String content;
+    private LocalDateTime createdAt;
+    private LocalDateTime modifiedAt;
+}
