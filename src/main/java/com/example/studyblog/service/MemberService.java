@@ -30,18 +30,6 @@ public class MemberService {
   @Transactional
   public ResponseDto<?> createMember(MemberRequestDto requestDto) {
 
-    Optional<Member> memberIdExist = memberRepository.findByEmail(requestDto.getEmail());
-    Optional<Member> nicknameExist = memberRepository.findByNickname(requestDto.getNickname());
-
-    if (memberIdExist.isPresent()) {
-      return ResponseDto.fail("DUPLICATED_NICKNAME",
-              "이미 존재하는 아이디 입니다.");
-    }
-    if (nicknameExist.isPresent()) {
-      return ResponseDto.fail("DUPLICATED_NICKNAME",
-              "이미 존재하는 닉네임 입니다.");
-    }
-
     Member member = Member.builder()
             .email(requestDto.getEmail())
             .nickname(requestDto.getNickname())
@@ -135,7 +123,7 @@ public class MemberService {
 
   public void tokenToHeaders(TokenDto tokenDto, HttpServletResponse response) {
     response.addHeader("Authorization", "Bearer " + tokenDto.getAccessToken());
-    response.addHeader("Refresh-Token", tokenDto.getRefreshToken());
+    response.addHeader("RefreshToken", tokenDto.getRefreshToken());
     response.addHeader("Access-Token-Expire-Time", tokenDto.getAccessTokenExpiresIn().toString());
   }
 
