@@ -11,5 +11,5 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 public class MemberIdRequestDto {
     @NotBlank
-    private String memberId;
+    private String email;
 }
