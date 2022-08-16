@@ -56,7 +56,8 @@ jobs:
         aws-region: ap-northeast-2
         
     - name: Upload to S3
-      run: aws s3 cp --region ap-northeast-2 --acl private ./springboot-intro-build.zip s3://springboot-intro-build/
+      run: aws s3 cp --region ap-northeast-2 --acl private ./springboor-intro-build.zip s3://springboot-intro-build/
+
 
 
 
