@@ -45,7 +45,7 @@ jobs:
 
       # 압축파일 형태로 전달
     - name: Make zip file
-      run: zip -r -qq -j ./springboot-intro-build.zip ./deploy
+      run: zip -r -qq -j ./springboot-studyblog.zip ./deploy
 
       # S3 Bucket으로 copy
     - name: Deploy
@@ -56,7 +56,7 @@ jobs:
         aws-region: ap-northeast-2
         
     - name: Upload to S3
-      run: aws s3 cp --region ap-northeast-2 --acl private ./springboot-intro-build.zip s3://springboot-intro-build/
+      run: aws s3 cp --region ap-northeast-2 --acl private ./springboot-studyblog.zip s3://springboot-studyblog/
 
 
 
