@@ -20,33 +20,34 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@NoArgsConstructor
 @Getter
-@AllArgsConstructor
 @Builder
+@RequiredArgsConstructor
 public class CommentService{
 
-    private CommentRepository commentRepository;
-    private PostRepository postRepository;
-    private TokenProvider tokenProvider;
+    private final CommentRepository commentRepository;
+    private final PostRepository postRepository;
+    private final TokenProvider tokenProvider;
 
     public ResponseDto<CommentResponseDto> createComment(Long postId, CommentRequestDto commentRequestDto, Member member){
         Post post = postRepository.findById(postId).orElse(null);
         if (post == null){
             return ResponseDto.fail("POST_NOT_FOUND", "해당 게시글을 찾을 수 없습니다.");
         }
+        
         Comment comment = Comment.builder()
                 .post(post)
                 .member(member)
                 .content(commentRequestDto.getContent())
                 .build();
+        System.out.println("commentRequestDto.getContent() = " + commentRequestDto.getContent());
         commentRepository.save(comment);
 
         CommentResponseDto commentResponseDto = CommentResponseDto.builder()
                 .id(comment.getId())
                 .nickname(member.getNickname())
                 .content(comment.getContent())
-                .createdAt(comment.getCreateAt())
+                .createdAt(comment.getCreatedAt())
                 .modifiedAt(comment.getModifiedAt())
                 .build();
         return ResponseDto.success(commentResponseDto);
@@ -90,7 +91,7 @@ public class CommentService{
             comment.update(commentRequestDto.getContent());
             return ResponseDto.success(CommentResponseDto.builder()
                             .modifiedAt(comment.getModifiedAt())
-                            .createdAt(comment.getCreateAt())
+                            .createdAt(comment.getCreatedAt())
                             .content(comment.getContent())
                             .nickname(comment.getMember().getNickname())
                             .id(commentId)
@@ -120,7 +121,7 @@ public class CommentService{
                         .content(comment.getContent())
                         .id(comment.getId())
                         .nickname(comment.getMember().getNickname())
-                        .createdAt(comment.getCreateAt())
+                        .createdAt(comment.getCreatedAt())
                         .modifiedAt(comment.getModifiedAt())
                         .build();
                 commentResponseDtoList.add(commentResponseDto);
@@ -130,16 +131,19 @@ public class CommentService{
     }
 
     public Optional<ResponseDto<?>> validationToken(HttpServletRequest request){
-        if (null == request.getHeader("Refresh-Token")) {
-            return Optional.of(ResponseDto.fail("MEMBER_NOT_FOUND", "로그인이 필요합니다."));
+        if (null == request.getHeader("RefreshToken")) {
+            return Optional.of(ResponseDto.fail("MEMBER_NOT_FOUND",
+                    "로그인이 필요합니다."));
         }
 
         if (null == request.getHeader("Authorization")) {
-            return Optional.of(ResponseDto.fail("MEMBER_NOT_FOUND", "로그인이 필요합니다."));
+            return Optional.of(ResponseDto.fail("MEMBER_NOT_FOUND",
+                    "로그인이 필요합니다."));
         }
 
-        if (!tokenProvider.validateToken(request.getHeader("Refresh-Token"))) {
-            return Optional.of(ResponseDto.fail("INVALID_TOKEN", "Token이 유효하지 않습니다."));
+        if (!tokenProvider.validateToken(request.getHeader("RefreshToken"))) {
+            return Optional.of(ResponseDto.fail("INVALID_TOKEN",
+                    "Token이 유효하지 않습니다."));
         }
         return Optional.empty();
     }

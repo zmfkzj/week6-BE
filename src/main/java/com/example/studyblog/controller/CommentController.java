@@ -15,12 +15,13 @@ public class CommentController {
     private CommentService commentService;
 
     @PostMapping("/{postId}")
-    public ResponseDto<?> createComment(@PathVariable Long postId, CommentRequestDto commentRequestDto, HttpServletRequest request){
+    public ResponseDto<?> createComment(@PathVariable Long postId, @RequestBody CommentRequestDto commentRequestDto, HttpServletRequest request){
+        System.out.println("request = " + commentRequestDto.getContent());
         return commentService.createComment(postId,commentRequestDto,request);
     }
 
     @PutMapping("/{commentId}")
-    public ResponseDto<?> updateComment(@PathVariable Long commentId, CommentRequestDto commentRequestDto, HttpServletRequest request){
+    public ResponseDto<?> updateComment(@PathVariable Long commentId, @RequestBody CommentRequestDto commentRequestDto, HttpServletRequest request){
         return commentService.updateComment(commentId,commentRequestDto,request);
     }
 
