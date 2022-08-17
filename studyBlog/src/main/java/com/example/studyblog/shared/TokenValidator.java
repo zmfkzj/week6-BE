@@ -14,7 +14,7 @@ public class TokenValidator {
     private TokenProvider tokenProvider;
 
     public Optional<ResponseDto<?>> validationToken(HttpServletRequest request){
-        if (null == request.getHeader("Refresh-Token")) {
+        if (null == request.getHeader("RefreshToken")) {
             return Optional.of(ResponseDto.fail("MEMBER_NOT_FOUND", "로그인이 필요합니다."));
         }
 
