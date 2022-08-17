@@ -58,6 +58,18 @@ jobs:
     - name: Upload to S3
       run: aws s3 cp --region ap-northeast-2 --acl private ./hgdjt-s3-bucket.zip s3://hgdjt-s3-bucket/
 
+# Deploy
+    - name: Deploy
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      run: |
+        aws deploy create-deployment \
+        --application-name springboot-studyblog \
+        --deployment-group-name springboot-studyblog-deploy-group \
+        --file-exists-behavior OVERWRITE \
+        --s3-location bucket=hgdjt-s3-bucket,bundleType=zip,key=hgdjt-s3-bucket.zip \
+        --region ap-northeast-2
 
 
 
