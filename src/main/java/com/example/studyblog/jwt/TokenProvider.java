@@ -6,7 +6,7 @@ import com.example.studyblog.domain.UserDetailsImpl;
 import com.example.studyblog.controller.response.ResponseDto;
 import com.example.studyblog.controller.request.TokenDto;
 import com.example.studyblog.repository.RefreshTokenRepository;
-import com.example.studyblog.shared.Authority;
+import com.example.studyblog.share.Authority;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;

@@ -34,8 +34,8 @@ public class MemberController {
   }
 
   @PostMapping("/api/member/exist/memberId")
-  public ResponseDto<?> checkMemberId(@RequestBody MemberIdRequestDto memberId){
-    return memberService.checkEmail(memberId);
+  public ResponseDto<?> checkMemberId(@RequestBody MemberIdRequestDto email){
+    return memberService.checkEmail(email);
   }
 
   @RequestMapping(value = "/api/member/login", method = RequestMethod.POST)
@@ -50,7 +50,7 @@ public class MemberController {
 //    return memberService.reissue(request, response);
 //  }
 
-  @RequestMapping(value = "/api/auth/member/logout", method = RequestMethod.POST)
+  @RequestMapping(value = "/api/member/logout", method = RequestMethod.POST)
   public ResponseDto<?> logout(HttpServletRequest request) {
     return memberService.logout(request);
   }

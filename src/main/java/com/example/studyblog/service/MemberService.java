@@ -81,7 +81,7 @@ public class MemberService {
   }
 
   public ResponseDto<?> logout(HttpServletRequest request) {
-    if (!tokenProvider.validateToken(request.getHeader("Refresh-Token"))) {
+    if (!tokenProvider.validateToken(request.getHeader("RefreshToken"))) {
       return ResponseDto.fail("INVALID_TOKEN", "Token이 유효하지 않습니다.");
     }
     Member member = tokenProvider.getMemberFromAuthentication();
@@ -103,8 +103,8 @@ public class MemberService {
     return ResponseDto.success("사용할 수 있는 nickname 입니다.");
   }
 
-  public ResponseDto<?> checkEmail(MemberIdRequestDto memberId){
-    Optional<Member> optionalMember = memberRepository.findByEmail(memberId.getEmail());
+  public ResponseDto<?> checkEmail(MemberIdRequestDto email){
+    Optional<Member> optionalMember = memberRepository.findByEmail(email.getEmail());
 
     if (optionalMember.isPresent()) {
       return ResponseDto.fail("DUPLICATED_NICKNAME",
